@@ -72,9 +72,9 @@ Pig.prototype = {
     });
   },
 
-   atualPlayer: function(){
+   atualPlayer: function(){                  
     if(that.panel0.classList.length > 1){     // select the current player through the 'active' class
-      that.panel0.classList.remove('active'); 
+      that.panel0.classList.remove('active'); // you can do that using 'toggle'
       that.panel1.className += ' ' + 'active';
       that.currentPlayer = 2; 
 
