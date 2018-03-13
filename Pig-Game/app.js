@@ -2,10 +2,9 @@
 GAME RULES:
 
 - The game has 2 players, playing in rounds
-- In each turn, a player rolls a dice one time. Each result get added to his ROUND score
+- In each turn, a player rolls a dice one time. Each result get added to his ROUND score with 'Hold'
 - BUT, if the player1 rolls a 1 or the player 2 rolls a 2, all his ROUND score gets lost. After that, it's the next player's turn
-- The player can choose to 'Hold', which means that his ROUND score gets added to his GL0BAL score. After that, it's the next player's turn
-- The first player to reach 100 points on GLOBAL score wins the game
+- The first player to reach 25 points on GLOBAL score wins the game
 
 */
 
@@ -139,11 +138,11 @@ Pig.prototype = {
     
   },
 
-  winGame: function() { // The first player to reach 100 points on GLOBAL score wins the game
-    if(pig.scoreP0.textContent >= 10){
+  winGame: function() { // The first player to reach 25 points on GLOBAL score wins the game
+    if(pig.scoreP0.textContent >= 25){
       that.pushDice(that.player1, '<strong>Winner !</strong>');
     } else 
-          if(pig.scoreP1.textContent >= 10){
+          if(pig.scoreP1.textContent >= 25){
               that.pushDice(that.player2, '<strong>Winner !</strong>');
               }
          
