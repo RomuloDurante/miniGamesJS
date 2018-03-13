@@ -2,9 +2,9 @@
 GAME RULES:
 
 - The game has 2 players, playing in rounds
-- In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
-- BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
-- The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
+- In each turn, a player rolls a dice one time. Each result get added to his ROUND score
+- BUT, if the player1 rolls a 1 or the player 2 rolls a 2, all his ROUND score gets lost. After that, it's the next player's turn
+- The player can choose to 'Hold', which means that his ROUND score gets added to his GL0BAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
@@ -16,9 +16,9 @@ var Pig  = function() {
   that.player2= document.getElementById('name-1');
 
   that.btnNew = document.querySelector('.btn-new'); 
-  that.btn = document.getElementById('btn-roll');
-  that.d = document.getElementById('dice');
+  that.btnRoll = document.getElementById('btn-roll');
   that.btnHold = document.querySelector('.btn-hold');
+  that.dice = document.getElementById('dice');
 
   that.scoreP0 = document.getElementById('score-0');
   that.p0 = 0;
@@ -48,10 +48,12 @@ Pig.prototype = {
   },
 
   rollDice: function() { // roll the dice and select a number
-    that.btn.addEventListener('click', function() {
+    that.btnRoll.addEventListener('click', function() {
+      //1- random number
       that.diceNumber = that.random();
-      that.pushDice(that.d, '<img src="'+that.selecDice(that.diceNumber)+'" alt="Dice" class="dice"> ');
-    
+      //2- select the image and show it in the display
+      that.pushDice(that.dice, '<img src="'+that.selecDice(that.diceNumber)+'" alt="Dice" class="dice"> ');
+      //3- update the diceNumber
       that.currentScore(that.diceNumber);
       
     }); 
@@ -59,23 +61,23 @@ Pig.prototype = {
 
   holdPoint: function(player, score, num) { // chance the player and push the full points to the main placar
     that.btnHold.addEventListener('click', function() {
-   
+      //1- if the number of the dice is 1 or 2, and the number of the player is 1 or 2 respectively then your score gets 0
       if(that.diceNumber === 1 && that.currentPlayer === 1 || that.diceNumber === 2 && that.currentPlayer === 2  ){
-        that.zeroPoint();
+        that.zeroPoint(); //2-call the method to get 0 to the current player score
       } else {
-        that.scoreTotal();
+        that.scoreTotal(); //3- if the number dice is whatever number unlike 1 or 2 call the scoreTotal method
       }
       
-      that.winGame();
-      that.atualPlayer();
+      that.winGame(); //4- call the method to see if there are a winner
+      that.atualPlayer(); //5- call the method to change the current player
     });
   },
 
    atualPlayer: function(){
-    if(that.panel0.classList.length > 1){     // select the atual player
-      that.panel0.classList.remove('active');
+    if(that.panel0.classList.length > 1){     // select the current player through the 'active' class
+      that.panel0.classList.remove('active'); 
       that.panel1.className += ' ' + 'active';
-      that.currentPlayer = 2;
+      that.currentPlayer = 2; 
 
     } else {
       that.panel1.classList.remove('active');
@@ -85,17 +87,8 @@ Pig.prototype = {
   },
 
   random: function() {  // generates a number between 1 and 6
-    var random = Math.random();
-    var num = random.toFixed(1) * 10; 
-    if (num > 6) {
-      num = num - 4;  
-    } else if (num === 0) {
-      num = 3;
-    }
-    return num;
+    return num = Math.floor(Math.random() * 6) + 1; 
   },
-
-
 
   currentScore: function(num) { //the provisory score in the red square
     if(that.currentPlayer === 1) {
@@ -140,18 +133,18 @@ Pig.prototype = {
        } else 
             if(that.currentPlayer === 1 && that.diceNumber === 1) {
               that.p1 = 0;
-            that.pushDice(that.scoreP0,  that.p1);
+              that.pushDice(that.scoreP0,  that.p1);
     
        }
     
   },
 
   winGame: function() { // The first player to reach 100 points on GLOBAL score wins the game
-    if(pig.scoreP0.textContent >= 100){
-      that.pushDice(that.player1, 'Winner !');
+    if(pig.scoreP0.textContent >= 10){
+      that.pushDice(that.player1, '<strong>Winner !</strong>');
     } else 
-          if(pig.scoreP1.textContent >= 100){
-                that.pushDice(that.player2, 'Winner !');
+          if(pig.scoreP1.textContent >= 10){
+              that.pushDice(that.player2, '<strong>Winner !</strong>');
               }
          
     
