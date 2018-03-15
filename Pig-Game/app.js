@@ -8,34 +8,44 @@ GAME RULES:
 
 */
 (function(global){
+  var Pig = function() {
+    return new Pig.init();
+  }
 
-  var Pig  = function() {
+  Pig.init  = function() {
     that = this;
   
-    that.player1 = document.getElementById('name-0');
-    that.player2= document.getElementById('name-1');
+    that.player1 = id$('name-0');
+    that.player2= id$('name-1');
   
-    that.btnNew = document.querySelector('.btn-new'); 
-    that.btnRoll = document.getElementById('btn-roll');
-    that.btnHold = document.querySelector('.btn-hold');
-    that.dice = document.getElementById('dice');
+    that.btnNew = qu$('.btn-new'); 
+    that.btnRoll = id$('btn-roll');
+    that.btnHold = qu$('.btn-hold');
+    that.dice = id$('dice');
   
-    that.scoreP0 = document.getElementById('score-0');
+    that.scoreP0 = id$('score-0');
     that.p0 = 0;
-    that.scoreP1 = document.getElementById('score-1');
+    that.scoreP1 = id$('score-1');
     that.p1 = 0;
     
-    that.currentScore0 = document.querySelector('#current-0');
-    that.currentScore1 = document.querySelector('#current-1');
+    that.currentScore0 = qu$('#current-0');
+    that.currentScore1 = qu$('#current-1');
     that.currentPlayer = 1; 
   
-    that.panel0 = document.querySelector('.player-0-panel');//find the active class
-    that.panel1 = document.querySelector('.player-1-panel');//find the active class
+    that.panel0 = qu$('.player-0-panel');//find the active class
+    that.panel1 = qu$('.player-1-panel');//find the active class
     
     that.diceNumber = 0;
   }
+
+  // safe by closures
   
-  Pig.prototype = {
+  var qu$ = function(x){return document.querySelector(x)};
+  var id$ = function(x){return document.getElementById(x)};
+
+  /****************************************** */
+
+  Pig.init.prototype = {
     /******************************************************** */
     // general
     newGame: function() {
@@ -152,16 +162,12 @@ GAME RULES:
     } 
   }
 
- global.Pig = Pig;
- global.pig = new Pig();
+ global.Pig = Pig; //exposes the object to the global context
+ global.pig = Pig(); // create the object without need the keyword 'new'
 
- pig.rollDice().holdPoint().newGame();
+ pig.rollDice().holdPoint().newGame(); // call the chainable methods
 
 }(window));
-
-
-
-
 
 
 
